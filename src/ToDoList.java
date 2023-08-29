@@ -24,10 +24,44 @@ public class ToDoList {
       System.out.println("1 - Просмотреть список задач");
       System.out.println("2 - Добавить задачу");
       System.out.println("3 - Удалить задачу");
-      System.out.println("q - Выйти");
+      System.out.println("! - Выйти");
 
       option = scanner.nextLine();
 
+      switch (option) {
+        case "1":
+          printTasks(tasks);
+          break;
+        case "2":
+          System.out.println("Введите новую задачу:");
+          String newTask = scanner.nextLine();
+          tasks.add(newTask);
+          break;
+        case "3":
+          System.out.println("Введите номер задачи для удаления:");
+          int taskIndex = scanner.nextInt();
+          scanner.nextLine();
+          if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.remove(taskIndex);
+          } else {
+            System.out.println("Недопустимый номер задачи.");
+          }
+          break;
+        case "q":
+          try {
+            saveTasksToFile(tasks);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          System.out.println("Список задач сохранен в файле " + FILENAME);
+          break;
+        default:
+          System.out.println("Недопустимая опция.");
+          break;
+      }
+    }
+
+    scanner.close();
   }
 
   private static List<String> readTasksFromFile() throws IOException {
