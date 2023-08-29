@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class ToDoList {
             System.out.println("Недопустимый номер задачи.");
           }
           break;
-        case "q":
+        case "!":
           try {
             saveTasksToFile(tasks);
           } catch (IOException e) {
@@ -92,6 +94,22 @@ public class ToDoList {
     }
 
     return tasks;
+  }
+
+  private static void saveTasksToFile(List<String> tasks) throws IOException {
+    BufferedWriter writer = null;
+
+    try {
+      writer = new BufferedWriter(new FileWriter(FILENAME));
+      for (String task : tasks) {
+        writer.write(task);
+        writer.newLine();
+      }
+    } finally {
+      if (writer != null) {
+        writer.close();
+      }
+    }
   }
 
 }
