@@ -64,6 +64,17 @@ public class ToDoList {
     scanner.close();
   }
 
+  private static void printTasks(List<String> tasks) {
+    if (tasks.isEmpty()) {
+      System.out.println("Список задач пуст.");
+    } else {
+      System.out.println("Список задач:");
+      for (int i = 0; i < tasks.size(); i++) {
+        System.out.println(i + ": " + tasks.get(i));
+      }
+    }
+  }
+
   private static List<String> readTasksFromFile() throws IOException {
     List<String> tasks = new ArrayList<String>();
     BufferedReader reader = null;
